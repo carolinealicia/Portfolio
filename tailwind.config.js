@@ -1,17 +1,20 @@
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
+  darkMode: ["class"],
   content: [
-    "./src/**/*.{html,js,ts,jsx,tsx}",
-    "app/**/*.{ts,tsx}",
-    "components/**/*.{ts,tsx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
-        "gray-200": "var(--gray-200)",
-        "gray-300": "var(--gray-300)",
-        "gray-400": "var(--gray-400)",
-        "variable-collection-blue": "var(--variable-collection-blue)",
-        "variable-collection-white": "var(--variable-collection-white)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -46,19 +49,6 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      fontFamily: {
-        body: "var(--body-font-family)",
-        h3: "var(--h3-font-family)",
-        sans: [
-          "ui-sans-serif",
-          "system-ui",
-          "sans-serif",
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-          '"Noto Color Emoji"',
-        ],
-      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -79,8 +69,6 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
-    container: { center: true, padding: "2rem", screens: { "2xl": "1400px" } },
   },
-  plugins: [],
-  darkMode: ["class"],
+  plugins: [require("tailwindcss-animate")],
 };
