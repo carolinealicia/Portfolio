@@ -1,5 +1,5 @@
 import { ArrowUpRightIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { AboutMeSection } from "./sections/AboutMeSection";
@@ -8,6 +8,8 @@ import { HomeSection } from "./sections/HomeSection";
 import { ProjectsSection } from "./sections/ProjectsSection";
 
 export const MacbookAir = (): JSX.Element => {
+  const [isLogoHovered, setIsLogoHovered] = useState(false);
+
   const experienceCards = [
     {
       image: "https://c.animaapp.com/VJabVXvs/img/frame-60.svg",
@@ -20,6 +22,7 @@ export const MacbookAir = (): JSX.Element => {
     },
   ];
 
+  // Split nav items for layout
   const navItems = [
     { type: "link", label: "Home" },
     { type: "link", label: "About" },
@@ -29,6 +32,10 @@ export const MacbookAir = (): JSX.Element => {
     { type: "link", label: "Github" },
     { type: "link", label: "Design" },
   ];
+  
+  const leftNavItems = navItems.slice(0, 3);
+  const logoItem = navItems[3];
+  const rightNavItems = navItems.slice(4);
 
   return (
     <div className="bg-white flex flex-row justify-center w-full">
@@ -73,37 +80,76 @@ export const MacbookAir = (): JSX.Element => {
           <ContactSection />
         </div>
 
-        {/* Navigation Bar */}
-        <nav className="fixed top-[62px] left-1/2 -translate-x-1/2 flex h-[46px] w-[1159px] items-center justify-between rounded-full bg-neutral-900 px-10 shadow-lg">
-          {navItems.map((item) => {
-            if (item.type === "logo") {
-              return (
-                <div key={item.label} className="px-10">
-                  <div className="flex shrink-0 items-center gap-x-3">
-                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[#2155ff]">
-                      <img
-                        className="h-[26px] w-auto object-contain"
-                        alt="CA Icon"
-                        src={item.icon}
-                      />
-                    </div>
-                    <span className="font-['DM_Sans'] font-bold text-white text-[20px] tracking-[-2.00px] leading-[normal]">
-                      {item.label}
-                    </span>
-                  </div>
-                </div>
-              );
-            }
-            return (
-              <Button
-                key={item.label}
-                variant="ghost"
-                className="font-['DM_Sans'] font-normal text-white text-[20px] tracking-[-0.30px] leading-[normal] hover:bg-neutral-700 hover:text-white px-4 py-2 rounded-full"
+        {/* --- Navigation Bar (Final Spacing) --- */}
+        <nav className="fixed top-8 left-1/2 -translate-x-1/2 flex h-[46px] w-[1159px] items-center justify-center rounded-full bg-neutral-900 px-8 shadow-lg">
+          <div className="flex w-full items-center justify-between">
+            {/* Left Links */}
+            <div className="flex items-center gap-x-8">
+              {leftNavItems.map((item) => (
+                <Button
+                  key={item.label}
+                  variant="ghost"
+                  className="font-['DM_Sans'] font-normal text-white text-[20px] tracking-[-0.30px] leading-[normal] hover:bg-neutral-700 hover:text-white px-3 py-2 rounded-full"
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </div>
+
+            {/* Center Logo */}
+            <div
+              className="flex justify-center items-center gap-x-3 cursor-pointer"
+              onMouseEnter={() => setIsLogoHovered(true)}
+              onMouseLeave={() => setIsLogoHovered(false)}
+            >
+              <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[#2155ff] flex-shrink-0">
+                <img
+                  className="h-[26px] w-auto object-contain"
+                  alt="CA Icon"
+                  src={logoItem.icon}
+                />
+              </div>
+              <div
+                className="relative transition-all duration-300 ease-in-out"
+                style={{ width: isLogoHovered ? 150 : 80 }}
               >
-                {item.label}
-              </Button>
-            );
-          })}
+                <div
+                  className={`absolute inset-0 flex items-center transition-opacity duration-300 ${
+                    isLogoHovered ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  <span className="font-['DM_Sans'] font-bold text-white text-[20px] tracking-[-2.00px] leading-[normal]">
+                    {logoItem.label}
+                  </span>
+                </div>
+                <div
+                  className={`absolute inset-0 flex flex-col justify-center transition-opacity duration-300 ${
+                    isLogoHovered ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <span className="font-['DM_Sans'] text-sm text-gray-400 leading-none tracking-[-0.21px] -mb-1">
+                    Made by
+                  </span>
+                  <span className="font-['DM_Sans'] font-bold text-white text-[20px] leading-tight whitespace-nowrap tracking-[-2px]">
+                    Caroline Alicia
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Links */}
+            <div className="flex items-center gap-x-8">
+              {rightNavItems.map((item) => (
+                <Button
+                  key={item.label}
+                  variant="ghost"
+                  className="font-['DM_Sans'] font-normal text-white text-[20px] tracking-[-0.30px] leading-[normal] hover:bg-neutral-700 hover:text-white px-3 py-2 rounded-full"
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </div>
+          </div>
         </nav>
       </div>
     </div>
