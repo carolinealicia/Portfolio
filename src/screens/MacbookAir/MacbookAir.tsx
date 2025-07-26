@@ -22,7 +22,7 @@ export const MacbookAir = (): JSX.Element => {
     },
   ];
 
-  // Split nav items for layout
+  // Split nav items for a three-part layout to ensure perfect centering
   const navItems = [
     { type: "link", label: "Home" },
     { type: "link", label: "About" },
@@ -80,75 +80,73 @@ export const MacbookAir = (): JSX.Element => {
           <ContactSection />
         </div>
 
-        {/* --- Navigation Bar (Final Spacing) --- */}
-        <nav className="fixed top-8 left-1/2 -translate-x-1/2 flex h-[46px] w-[1159px] items-center justify-center rounded-full bg-neutral-900 px-8 shadow-lg">
-          <div className="flex w-full items-center justify-between">
-            {/* Left Links */}
-            <div className="flex items-center gap-x-8">
-              {leftNavItems.map((item) => (
-                <Button
-                  key={item.label}
-                  variant="ghost"
-                  className="font-['DM_Sans'] font-normal text-white text-[20px] tracking-[-0.30px] leading-[normal] hover:bg-neutral-700 hover:text-white px-3 py-2 rounded-full"
-                >
-                  {item.label}
-                </Button>
-              ))}
-            </div>
+        {/* Navigation Bar */}
+        <nav className="fixed top-8 left-1/2 -translate-x-1/2 flex h-[46px] w-[1159px] items-center justify-center gap-x-12 rounded-full bg-neutral-900 px-8 shadow-lg">
+          {/* Left Links */}
+          <div className="flex items-center justify-start gap-x-12">
+            {leftNavItems.map((item) => (
+              <Button
+                key={item.label}
+                variant="ghost"
+                className="font-['DM_Sans'] font-normal text-white text-[20px] tracking-[-0.30px] leading-[normal] hover:bg-neutral-700 hover:text-white px-2 py-2 rounded-full"
+              >
+                {item.label}
+              </Button>
+            ))}
+          </div>
 
-            {/* Center Logo */}
+          {/* Center Logo */}
+          <div
+            className="flex justify-center items-center gap-x-2 cursor-pointer"
+            onMouseEnter={() => setIsLogoHovered(true)}
+            onMouseLeave={() => setIsLogoHovered(false)}
+          >
+            <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[#2155ff] flex-shrink-0">
+              <img
+                className="h-[26px] w-auto object-contain"
+                alt="CA Icon"
+                src={logoItem.icon}
+              />
+            </div>
             <div
-              className="flex justify-center items-center gap-x-3 cursor-pointer"
-              onMouseEnter={() => setIsLogoHovered(true)}
-              onMouseLeave={() => setIsLogoHovered(false)}
+              className="relative transition-all duration-300 ease-in-out"
+              style={{ width: isLogoHovered ? 150 : 80 }}
             >
-              <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[#2155ff] flex-shrink-0">
-                <img
-                  className="h-[26px] w-auto object-contain"
-                  alt="CA Icon"
-                  src={logoItem.icon}
-                />
+              <div
+                className={`absolute inset-0 flex items-center transition-opacity duration-300 ${
+                  isLogoHovered ? "opacity-0" : "opacity-100"
+                }`}
+              >
+                <span className="font-['DM_Sans'] font-bold text-white text-[20px] tracking-[-2.00px] leading-[normal]">
+                  {logoItem.label}
+                </span>
               </div>
               <div
-                className="relative transition-all duration-300 ease-in-out"
-                style={{ width: isLogoHovered ? 150 : 80 }}
+                className={`absolute inset-0 flex flex-col justify-center transition-opacity duration-300 ${
+                  isLogoHovered ? "opacity-100" : "opacity-0"
+                }`}
               >
-                <div
-                  className={`absolute inset-0 flex items-center transition-opacity duration-300 ${
-                    isLogoHovered ? "opacity-0" : "opacity-100"
-                  }`}
-                >
-                  <span className="font-['DM_Sans'] font-bold text-white text-[20px] tracking-[-2.00px] leading-[normal]">
-                    {logoItem.label}
-                  </span>
-                </div>
-                <div
-                  className={`absolute inset-0 flex flex-col justify-center transition-opacity duration-300 ${
-                    isLogoHovered ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  <span className="font-['DM_Sans'] text-sm text-gray-400 leading-none tracking-[-0.21px] -mb-1">
-                    Made by
-                  </span>
-                  <span className="font-['DM_Sans'] font-bold text-white text-[20px] leading-tight whitespace-nowrap tracking-[-2px]">
-                    Caroline Alicia
-                  </span>
-                </div>
+                <span className="font-['DM_Sans'] text-sm text-gray-400 leading-none tracking-[-0.21px] -mb-1">
+                  Made by
+                </span>
+                <span className="font-['DM_Sans'] font-bold text-white text-[20px] leading-tight whitespace-nowrap tracking-[-2px]">
+                  Caroline Alicia
+                </span>
               </div>
             </div>
+          </div>
 
-            {/* Right Links */}
-            <div className="flex items-center gap-x-8">
-              {rightNavItems.map((item) => (
-                <Button
-                  key={item.label}
-                  variant="ghost"
-                  className="font-['DM_Sans'] font-normal text-white text-[20px] tracking-[-0.30px] leading-[normal] hover:bg-neutral-700 hover:text-white px-3 py-2 rounded-full"
-                >
-                  {item.label}
-                </Button>
-              ))}
-            </div>
+          {/* Right Links */}
+          <div className="flex items-center justify-end gap-x-12">
+            {rightNavItems.map((item) => (
+              <Button
+                key={item.label}
+                variant="ghost"
+                className="font-['DM_Sans'] font-normal text-white text-[20px] tracking-[-0.30px] leading-[normal] hover:bg-neutral-700 hover:text-white px-2 py-2 rounded-full"
+              >
+                {item.label}
+              </Button>
+            ))}
           </div>
         </nav>
       </div>
